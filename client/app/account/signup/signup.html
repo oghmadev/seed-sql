@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="row col-md-6 col-md-offset-3">
+    <h1>Registrar usuario</h1>
+  </div>
+  <div class="row col-md-6 col-md-offset-3">
+    <form class="form" name="form" ng-submit="$ctrl.register(form)" novalidate>
+
+      <div class="form-group" ng-class="{'has-error': form.name.$invalid && form.name.$touched}">
+        <label>Nombre</label>
+        <input type="text" name="name" class="form-control" ng-model="$ctrl.user.name" required/>
+
+        <p class="help-block" ng-show="form.name.$error.required && form.name.$touched">
+          Por favor ingrese el Nombre
+        </p>
+
+        <p class="help-block" ng-show="form.name.$error.pattern && form.name.$touched">
+          Formato Invalido.
+        </p>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': form.email.$invalid && form.email.$touched}">
+        <label>Email</label>
+        <input type="email" name="email" class="form-control" ng-model="$ctrl.user.email" required/>
+
+        <p class="help-block" ng-if="form.email.$error.email && form.email.$touched">
+          El email no es valido.
+        </p>
+
+        <p class="help-block" ng-if="form.email.$error.required && form.email.$touched">
+          Por favor ingrese el email.
+        </p>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': form.password.$invalid && form.password.$touched}">
+        <label>Contraseña</label>
+        <input type="password" name="password" class="form-control" ng-model="$ctrl.user.password" ng-minlength="3"
+               required/>
+        <p class="help-block"
+           ng-if="(form.password.$error.minlength || form.password.$error.required) && form.password.$touched">
+          La Contraseña debe tener al menos tres caracteres.
+        </p>
+        <p class="help-block" ng-show="form.password.$error.mongoose">
+          El email ingresado ya se encuentra registrado.
+        </p>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': form.confirmPassword.$invalid && form.confirmPassword.$touched}">
+        <label>Confirmar Contraseña</label>
+        <input type="password" name="confirmPassword" class="form-control" ng-model="$ctrl.user.confirmPassword"
+               match="$ctrl.user.password" ng-minlength="3" required/>
+        <p class="help-block"
+           ng-if="(form.confirmPassword.$error.minlength || form.confirmPassword.$error.required) && (form.confirmPassword.$touched)">
+          La Contraseña debe tener al menos tres caracteres.
+        </p>
+        <p class="help-block" ng-if="form.confirmPassword.$error.match && form.confirmPassword.$touched">
+          Las Contraseñas deben coincidir.
+        </p>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': form.role.$invalid && form.role.$touched}">
+        <label>Rol</label>
+        <select class="form-control" ng-model="$ctrl.user.role" name="role" required>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+
+        <p class="help-block" ng-if="form.role.$error.required && form.role.$touched">
+          Por favor ingrese el Rol.
+        </p>
+      </div>
+
+      <div>
+        <button class="btn btn-inverse btn-lg btn-register" type="submit" ng-disabled="form.$invalid">
+          Registrar
+        </button>
+      </div>
+    </form>
+
+    <div class="alert alert-danger ng-scope margin-top-2" ng-if="$ctrl.saveFailure">
+      <a href="#" class="close" ng-click="$ctrl.saveFailure = false" aria-label="close">×</a>
+      <strong>Error!</strong>
+      Ocurrió un problema en la creación del Usuario.
+    </div>
+  </div>
+  <hr>
+</div>

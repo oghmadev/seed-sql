@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <h1>Cambiar Contraseña</h1>
+
+      <div class="alert alert-warning alert-dismissible" role="alert" ng-if="$ctrl.saveFailure">
+        <button type="button" class="close"><span ng-click="$ctrl.closeNotification()">&times;</span></button>
+        Contraseña actual incorrecta.
+      </div>
+
+      <form class="form" name="form" ng-submit="$ctrl.changePassword(form)" novalidate>
+        <div class="form-group">
+          <label>Contraseña Actual</label>
+          <input type="password" name="password" class="form-control" ng-model="$ctrl.user.oldPassword" required/>
+        </div>
+
+        <div class="form-group">
+          <label>Nueva Contraseña</label>
+          <input type="password" name="newPassword" class="form-control" ng-model="$ctrl.user.newPassword" ng-minlength="3" required/>
+
+          <div class="alert alert-danger margin-top-15" ng-if="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty)">
+            La Contraseña debe tener al menos tres caracteres.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Confirmar la nueva contraseña</label>
+
+          <input type="password" name="confirmPassword" class="form-control" ng-model="$ctrl.user.confirmPassword"
+                 match="$ctrl.user.newPassword" ng-minlength="3" required/>
+
+          <div class="alert alert-danger margin-top-15" ng-if="(form.confirmPassword.$error.minlength || form.confirmPassword.$error.required) && (form.confirmPassword.$dirty)">
+            La Contraseña debe tener al menos tres caracteres.
+          </div>
+
+          <div class="alert alert-danger margin-top-15" ng-if="form.confirmPassword.$error.match && form.confirmPassword.$dirty">
+            Las contraseñas deben coincidir.
+          </div>
+
+          <div class="alert alert-success margin-top-15" role="alert" ng-if="$ctrl.saveSuccess">
+            <button type="button" class="close"><span ng-click="$ctrl.closeNotification()">&times;</span></button>
+            Contraseña cambiada exitosamente!
+          </div>
+
+        </div>
+        <button class="btn btn-lg btn-primary" type="submit" ng-disabled="form.$invalid">Guardar Cambios</button>
+      </form>
+    </div>
+  </div>
+</div>

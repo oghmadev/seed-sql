@@ -1,0 +1,44 @@
+<div class="column is-4 is-offset-3">
+  <h1 class="title"> Login </h1>
+
+  <div class="notification is-danger"
+       ng-if="(form.email.$error.required || form.password.$error.required || form.email.$error.email) && $ctrl.submitted">
+    <button class="delete" ng-click="$ctrl.close()"></button>
+    <ul class="no-style-list has-no-margin">
+      <li ng-if="form.email.$error.required">Ingrese el Email</li>
+      <li ng-if="form.password.$error.required">Ingrese la Contraseña</li>
+      <li ng-if="form.email.$error.email">Formato de email incorrecto</li>
+    </ul>
+  </div>
+
+  <div class="notification is-danger" ng-if="$ctrl.errEmail || $ctrl.errPassword">
+    <button class="delete" ng-click="$ctrl.close()"></button>
+    <span ng-if="$ctrl.errEmail">Email no Registrado</span>
+    <span ng-if="$ctrl.errPassword">Contraseña Incorrecta</span>
+  </div>
+
+  <div class="box">
+    <form name="form" ng-submit="$ctrl.login(form)" novalidate>
+      <label class="label">Email</label>
+      <p class="control has-icon">
+        <input class="input" type="email" name="email" ng-model="$ctrl.user.email"
+               placeholder="user@example.com" required>
+        <i class="fa fa-envelope"></i>
+      </p>
+
+      <label class="label">Contraseña</label>
+      <p class="control has-icon">
+        <input class="input" type="password" name="password" ng-model="$ctrl.user.password"
+               placeholder="●●●●●●●" required>
+        <i class="fa fa-key"></i>
+      </p>
+
+      <hr>
+
+      <p class="control move-right">
+        <button class="button is-medium is-primary" type="submit">Login</button>
+      </p>
+    </form>
+  </div>
+</div>
+
